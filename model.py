@@ -1,6 +1,7 @@
 import csv
 import cv2
 import numpy as np
+import sklearn
 
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
@@ -9,31 +10,35 @@ from keras.layers.convolutional import Convolution2D, Cropping2D
 from keras.layers.pooling import MaxPooling2D
 
 def generator(samples, batch_size=32):
-    num_samples = len(samples)
-    while 1: # Loop forever so the generator never terminates
-        shuffle(samples)
-        for offset in range(0, num_samples, batch_size):
-            batch_samples = samples[offset:offset+batch_size]
+	num_samples = len(samples)
+	while 1: # Loop forever so the generator never terminates
+		sklearn.utils.shuffle(samples)
+		for offset in range(0, num_samples, batch_size):
+			batch_samples = samples[offset:offset+batch_size]
 
-            images = []
-            angles = []
-            for batch_sample in batch_samples:
-                name = '.data/IMG/'+batch_sample[0].split('\\')[-1]
-                center_image = cv2.imread(name)
-                center_angle = float(batch_sample[3])
-                images.append(center_image)
-                angles.append(center_angle)
+			images = []
+			angles = []
+			correction = (0., .2, -.2)
+			for batch_sample in batch_samples:
+				for i in range(3)
+					name = './data/IMG/'+batch_sample[i].split('\\')[-1]
+					image = cv2.imread(name)
+					center_angle = float(batch_sample[3])
+					images.append(image)
+					angles.append(center_angle + correction[i])
 
-            # trim image to only see section with road
-            X_train = np.array(images)
-            y_train = np.array(angles)
-            yield sklearn.utils.shuffle(X_train, y_train)
+			# trim image to only see section with road
+			X_train = np.array(images)
+			y_train = np.array(angles)
+			yield sklearn.utils.shuffle(X_train, y_train)
 
 # read csv
 lines = []
 with open('./data/driving_log.csv') as f:
 	reader = csv.reader(f)
 	for line in reader:
+		if 'center' == line[0]:
+			continue
 		lines.append(line)
 
 train_samples, validation_samples = train_test_split(lines, test_size=0.2)
