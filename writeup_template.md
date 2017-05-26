@@ -1,11 +1,11 @@
 [//]: # (Image References)
 
 
-[ml]: ./machine_learning.png "The pile gets soaked with data and starts to get mushy over time, so it's technically recurrent."
-[cd]: ./cd.jpg "Center Driving"
-[rd]: ./rd.jpg "Right side recovery"
-[ld]: ./ld.jpg "Left side recovery"
-[cd_flip]: ./cd_flip.jpg "Flipped Image: Center Driving"
+[ml]: ./img/machine_learning.png "The pile gets soaked with data and starts to get mushy over time, so it's technically recurrent."
+[cd]: ./img/cd.jpg "Center Driving"
+[rd]: ./img/rd.jpg "Right side recovery"
+[ld]: ./img/ld.jpg "Left side recovery"
+[cd_flip]: ./img/cd_flip.jpg "Flipped Image: Center Driving"
 
 #**Behavioral Cloning** 
 
