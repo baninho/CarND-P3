@@ -18,14 +18,17 @@ def generator(samples, batch_size=32):
 
 			images = []
 			angles = []
+			# correction angles for using left and right camera images
 			correction = (0., .11, -.11)
 			for batch_sample in batch_samples:
+				# center, left and right images
 				for i in range(3):
 					name = './data/IMG/'+batch_sample[i].split('\\')[-1]
 					image = cv2.imread(name)
 					center_angle = float(batch_sample[3])
 					images.append(image)
 					angles.append(center_angle + correction[i])
+					# flip image to combat left turn bias
 					images.append(np.fliplr(image))
 					angles.append(-center_angle - correction[i])
 
@@ -42,8 +45,10 @@ with open('./data/driving_log.csv') as f:
 			continue
 		lines.append(line)
 
+# split data
 train_samples, validation_samples = train_test_split(lines, test_size=0.2)
 
+# set up generators
 train_generator = generator(train_samples, batch_size=16)
 validation_generator = generator(validation_samples, batch_size=16)
 
