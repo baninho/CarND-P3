@@ -41,6 +41,8 @@ python drive.py model.h5
 ```
 I modified the PI controller such that the integral part is only updated when the actual vehicle speed is close to the setpoint to avoid overshooting and "winding up".
 
+I also modified drive.py to flip the color planes of the RGB color image read in using PLT to match those used in training read in using cv2 yielding BGR images (line 65).
+
 ####3. Submission code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
@@ -88,12 +90,12 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 The final model architecture (model.py lines 61-75) consisted of a convolution neural network with the following layers and layer sizes:
 
 * 24x5x5 Convolution, 2x2 stride, Relu activation
-* 36x5x5 Convolution, 2x2 stride, Relu activation
-* 48x5x5 Convolution, 2x2 stride, Relu activation
+* 36x5x5 Convolution, 2x2 stride, Relu activation, 25% Dropout
+* 48x5x5 Convolution, 2x2 stride, Relu activation, 25% Dropout
 * 64x3x3 Convolution, Relu activation
-* 64x3x3 Convolution, Relu activation
-* 100 Fully Connected
-* 50 Fully Connected
+* 64x3x3 Convolution, Relu activation, 25% Dropout
+* 100 Fully Connected, 25% Dropout
+* 50 Fully Connected, 25% Dropout
 * 10 Fully Connected
 * Output node
 
